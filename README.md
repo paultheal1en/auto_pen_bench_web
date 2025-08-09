@@ -53,7 +53,10 @@ make install
 To run a single vm : 
 
 ```bash
-docker run -d --name in-vitro_web_security_vm0 -p 80:80 in-vitro_web_security_vm0
+docker compose \
+  -f benchmark/machines/docker-compose.yml \
+  -f benchmark/machines/in-vitro/web_security/docker-compose.yml \
+  up -d in-vitro_web_security_vm0
 ```
 
 To test one instance of the benchmark, refer to the [example folder](./examples/). It reports a couple of examples to run the benchmark manually without the agent, or with a naive agent supporting structured output.
