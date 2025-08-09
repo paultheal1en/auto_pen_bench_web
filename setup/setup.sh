@@ -24,4 +24,4 @@ mkdir benchmark/machines/kali/tmp_script
 echo "AUTOPENBENCH=$(pwd)/benchmark" > .env
 echo "KALISCRIPTS=$(pwd)/benchmark/machines/kali/tmp_script" >> .env
 
-pip3 install -e .
+pip3 install --break-system-packages -e .
