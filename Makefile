@@ -7,13 +7,13 @@ STG_MILESTONES := $(MILESTONES)/stage_milestones
 
 build:
 	$(eval DC := $(shell find benchmark -name 'docker-compose.yml' -print0 | xargs -0 -I {} echo "-f {}" | grep -v "benchmark/machines/docker-compose.yml"))
-	docker compose -f benchmark/machines/docker-compose.yml $(DC) build
+	docker-compose -f benchmark/machines/docker-compose.yml $(DC) build
 
 install:build
 	setup/setup.sh
 
 test:
-	@docker compose -f benchmark/machines/docker-compose.yml -f benchmark/machines/$(category)/$(task_type)/docker-compose.yml build
+	@docker-compose -f benchmark/machines/docker-compose.yml -f benchmark/machines/$(category)/$(task_type)/docker-compose.yml build
 	@python3 benchmark/tests/machine_test.py $(category) $(task_type) $(vm)
 
 create:
@@ -55,7 +55,7 @@ $(MACHINES)/$(CATEGORY)/$(TASK_TYPE)/vm$(VM): $(MACHINES)/$(CATEGORY)/$(TASK_TYP
 	touch $(STG_MILESTONES)/$(CATEGORY)/$(TASK_TYPE)/vm$(VM).txt
 	touch $(SOLUTIONS)/$(CATEGORY)/$(TASK_TYPE)/vm$(VM).txt
 
-	# Update the docker compose with a default service
+	# Update the docker-compose with a default service
 	python3 setup/manage_docker_compose.py update $(BENCHMARK) $(CATEGORY) $(TASK_TYPE) $(VM)
 	# Udate the input file
 	python3 setup/manage_input_data.py $(CATEGORY) $(TASK_TYPE) $(VM)
