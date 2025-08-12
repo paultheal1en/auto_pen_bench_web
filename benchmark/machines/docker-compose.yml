@@ -11,7 +11,7 @@ services:
             net-main_network:
                 ipv4_address: 192.168.0.5
         ports: 
-          - "2222:22"
+          - "8888:22"
         volumes:
             - ./kali/tmp_script:/root/scripts
         command: bash -c "

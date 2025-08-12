@@ -7,7 +7,7 @@ STG_MILESTONES := $(MILESTONES)/stage_milestones
 
 build:
 	$(eval DC := $(shell find benchmark -name 'docker-compose.yml' -print0 | xargs -0 -I {} echo "-f {}" | grep -v "benchmark/machines/docker-compose.yml"))
-	docker-compose -f benchmark/machines/docker-compose.yml $(DC) build
+	docker compose -f benchmark/machines/docker-compose.yml $(DC) build
 
 install:build
 	setup/setup.sh

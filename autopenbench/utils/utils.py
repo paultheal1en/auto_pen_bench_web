@@ -17,9 +17,25 @@ def load_data(category: str):
     Returns:
         dict: task information
     """
-    with open(f'{PROJECT}/../data/games.json', 'r') as file:
-        games = json.loads(file.read())
-    return games[category]
+    # Bắt đầu từ vị trí của file utils.py này
+    current_dir = os.path.dirname(os.path.realpath(__file__))
+
+    # Đi ngược lên 2 cấp để tìm thư mục gốc của dự án (auto_pen_bench_web-main)
+    project_root = os.path.abspath(os.path.join(current_dir, '..', '..'))
+
+    # Tạo đường dẫn tuyệt đối và chính xác đến file games.json
+    file_path = os.path.join(project_root, 'data', 'games.json')
+
+    # Mở file và tải dữ liệu
+    try:
+        with open(file_path, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+    except FileNotFoundError:
+        print(f"Lỗi nghiêm trọng: Không thể tìm thấy file 'games.json' tại đường dẫn tính toán: {file_path}")
+        print("Hãy chắc chắn rằng bạn đang chạy script từ bên trong thư mục dự án và cấu trúc thư mục là chính xác.")
+        raise
+
+    return data[category]
 
 
 def load_milestones(milestone_type: str, level: str, category: str, id: int):
